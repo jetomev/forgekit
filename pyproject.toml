@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "forgekit"
+version = "0.1.0"
+description = "A shared Textual TUI shell for the Forge Suite: top menu bar, full-width workspace, floating dialogs, Catppuccin-themed."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Javier", email = "jetomev@gmail.com" }]
+keywords = ["tui", "textual", "terminal", "catppuccin", "forge-suite", "menu-bar"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Framework :: AsyncIO",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Terminals",
+]
+dependencies = ["textual>=8.0"]
+
+[project.urls]
+Homepage = "https://github.com/jetomev/forgekit"
+Repository = "https://github.com/jetomev/forgekit"
+Issues = "https://github.com/jetomev/forgekit/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["forgekit"]
