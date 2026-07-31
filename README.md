@@ -119,8 +119,13 @@ option.
 ## The Forge Suite
 
 `forgekit` is the shared UI layer being adopted (v2.0) across the Forge Suite
-for KognogOS — grubForge, alacrittyForge, BitlaForge, nogForge. Splitting the
-shell into one library means a fix or a polish lands for every app at once.
+for KognogOS — grubForge, alacrittyForge, BitlaForge, nogForge, and the two
+distro-critical apps decided 2026-07-31 under KognogOS's **TUI-first
+doctrine**: **welcomeforge** (the KognogOS Welcome Center — forgekit's pilot
+adopter) and **installforge** (the OS installer, building on the kit
+welcomeforge matures). Splitting the shell into one library means a fix or a
+polish lands for every app at once — and the suite is deliberately growing
+toward a full **Forge Control Center** for the OS.
 
 ## License & credits
 
