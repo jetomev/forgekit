@@ -58,9 +58,16 @@ MenuDropdown { align: left top; background: black 30%; }
 ConfirmDialog, ForgePanelScreen, ForgeModal { align: center middle; background: black 45%; }
 .forge-confirm { width: 50; height: auto; padding: 1 2; background: #313244; border: round #f9e2af; }
 .forge-confirm-msg { padding: 0 0 1 0; }
-.forge-panel { width: 70%; height: 80%; padding: 1 2; background: #313244; border: round #89b4fa; }
+/* panels hug their content (F-7): short windows end a breath after the
+   footer; long bodies cap at ~65% of the terminal height and scroll —
+   the body carries the clamp (in vh) so the fixed footer always fits */
+.forge-panel { width: 70%; height: auto; max-height: 100%; padding: 1 2; background: #313244; border: round #89b4fa; }
 .forge-panel-title { color: #89b4fa; text-style: bold; padding: 0 0 1 0; }
-.forge-panel-body { height: 1fr; }
+.forge-panel-body { height: auto; max-height: 65vh; }
+/* F-8: fixed footer under a divider — buttons never scroll away.
+   Kept thin (divider + button row; the panel's bottom padding is the
+   air underneath). Definite height so layout reserves its rows. */
+.forge-panel-footer { height: 2; padding: 0; border-top: solid #585b70; }
 
 Label { color: #a6adc8; padding: 1 0 0 0; }
 Switch.-on { color: #89b4fa; }

@@ -98,9 +98,9 @@ class EditDialog(ForgeModal[dict | None]):
                 with Horizontal(classes="switch-row"):
                     yield Switch(value=bool(e["enabled"]), id="f-enabled")
                     yield Label("Enabled", classes="switch-label")
-                with Horizontal(classes="forge-buttons"):
-                    yield Button("Save", id="save", variant="primary")
-                    yield Button("Cancel", id="cancel")
+            with Horizontal(classes="forge-buttons forge-panel-footer"):
+                yield Button("Save", id="save", variant="primary")
+                yield Button("Cancel", id="cancel")
 
     def _values(self) -> dict:
         return {

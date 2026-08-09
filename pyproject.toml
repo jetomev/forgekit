@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "forgekit"
-version = "0.2.0"
+version = "0.2.1"
 description = "A shared Textual TUI shell for the Forge Suite: top menu bar, full-width workspace, floating dialogs, Catppuccin-themed."
 readme = "README.md"
 requires-python = ">=3.10"

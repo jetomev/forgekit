@@ -61,7 +61,13 @@ class ConfirmDialog(ModalScreen[bool]):
 
 
 class ForgePanelScreen(ModalScreen[None]):
-    """A read-only scrolling panel with a trailing Close button."""
+    """A read-only panel: fixed title, scrolling body, fixed button footer.
+
+    F-8 anatomy (field ruling, 2026-08-09): only the body scrolls; the
+    button bar sits under a divider border and is ALWAYS visible, no
+    matter how long the content grows. Override ``compose_footer`` to
+    supply different buttons.
+    """
 
     BINDINGS = [Binding("escape", "close", "", show=False)]
     panel_title = "forgekit"
@@ -71,11 +77,14 @@ class ForgePanelScreen(ModalScreen[None]):
             yield Static(self.panel_title, classes="forge-panel-title")
             with VerticalScroll(classes="forge-panel-body"):
                 yield from self.compose_body()
-                with Horizontal(classes="forge-buttons"):
-                    yield Button("Close", id="forge-close", variant="primary")
+            with Horizontal(classes="forge-buttons forge-panel-footer"):
+                yield from self.compose_footer()
 
     def compose_body(self) -> ComposeResult:
         yield from ()
+
+    def compose_footer(self) -> ComposeResult:
+        yield Button("Close", id="forge-close", variant="primary")
 
     def on_button_pressed(self, e: Button.Pressed) -> None:
         self.dismiss()
@@ -92,8 +101,11 @@ class ShortcutsDialog(ForgePanelScreen):
         self._shortcuts = shortcuts
 
     def compose_body(self) -> ComposeResult:
+        # F-6: key column sizes to the longest key, so multi-key labels
+        # ("Ctrl+D or 1") keep the descriptions aligned.
+        width = max((len(k) for k, _ in self._shortcuts), default=8)
         for key, desc in self._shortcuts:
-            yield Static(f"[#89b4fa b]{key:<8}[/]  {desc}")
+            yield Static(f"[#89b4fa b]{key:<{width}}[/]  {desc}")
 
 
 class LicenseDialog(ForgePanelScreen):
