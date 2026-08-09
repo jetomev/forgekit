@@ -6,6 +6,8 @@
 ![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg)
 ![Theme: Catppuccin Mocha](https://img.shields.io/badge/Theme-Catppuccin%20Mocha-f5c2e7.svg)
 
+> 🛡 **Security:** every release is GPG-signed and every commit GitHub-Verified. Read **[Where We Stand](https://github.com/jetomev/KognogOS/blob/main/docs/where-we-stand.md)** — our response to the 2026 AUR supply-chain attacks, what is current during the AUR freeze, and how to verify us instead of trusting us.
+
 A shared **Textual TUI shell** for the [Forge Suite](#the-forge-suite): a classic
 **top menu bar**, a **full-width workspace**, and **floating dialogs** — Catppuccin-Mocha
 themed. Build a terminal app by subclassing one class and declaring your menu,
