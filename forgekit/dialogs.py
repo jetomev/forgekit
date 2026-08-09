@@ -72,6 +72,17 @@ class ForgePanelScreen(ModalScreen[None]):
     BINDINGS = [Binding("escape", "close", "", show=False)]
     panel_title = "forgekit"
 
+    # Extra keys that close the panel (kit finding #5: app-level character
+    # bindings don't reach through a modal, so apps declare them here
+    # instead of subclassing with Binding machinery). Textual key names,
+    # e.g. CLOSE_KEYS = ("question_mark", "q").
+    CLOSE_KEYS: tuple[str, ...] = ()
+
+    def on_key(self, event) -> None:
+        if event.key in self.CLOSE_KEYS:
+            event.stop()
+            self.dismiss()
+
     def compose(self) -> ComposeResult:
         with Vertical(classes="forge-panel"):
             yield Static(self.panel_title, classes="forge-panel-title")

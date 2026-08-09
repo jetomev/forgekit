@@ -69,9 +69,18 @@ ConfirmDialog, ForgePanelScreen, ForgeModal { align: center middle; background: 
    air underneath). Definite height so layout reserves its rows. */
 .forge-panel-footer { height: 2; padding: 0; border-top: solid #585b70; }
 
+/* form widgets (F-9, promoted from BitlaForge/alacrittyForge app CSS —
+   every Forge app edits config, so forms are kit territory) */
 Label { color: #a6adc8; padding: 1 0 0 0; }
+Input { background: #313244; color: #cdd6f4; border: solid #45475a; }
+Input:focus { border: solid #89b4fa; }
+Select { background: #313244; color: #cdd6f4; border: solid #45475a; }
+Select:focus { border: solid #89b4fa; }
+Checkbox { background: #1e1e2e; color: #cdd6f4; }
 Switch.-on { color: #89b4fa; }
 Switch:focus { border: tall #89b4fa; }
+DataTable > .datatable--header { background: #313244; color: #89b4fa; text-style: bold; }
+DataTable > .datatable--cursor { background: #45475a; color: #cdd6f4; }
 /* compact one-row buttons — Textual's 3-row bordered default is too heavy */
 .forge-buttons { height: auto; padding: 1 0 0 0; align-horizontal: right; }
 .forge-buttons Button {

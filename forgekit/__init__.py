@@ -13,7 +13,7 @@ from .licenses import GPL3_NOTICE
 from .menu import MenuBar, MenuDropdown, accel, underline_label
 from .theme import COLORS, FORGE_CSS
 
-__version__ = "0.2.1"
+__version__ = "0.3.0"
 
 __all__ = [
     "ForgeApp",
