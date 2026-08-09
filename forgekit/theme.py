@@ -21,6 +21,19 @@ COLORS = {
 FORGE_CSS = """
 Screen { background: #1e1e2e; color: #cdd6f4; }
 
+/* scrollbars — furniture, not content: gray family only, slim, accent only
+   while dragging (scrollbar props don't inherit, hence the * selector) */
+* {
+    scrollbar-background: #313244;
+    scrollbar-background-hover: #313244;
+    scrollbar-background-active: #313244;
+    scrollbar-color: #585b70;
+    scrollbar-color-hover: #7f849c;
+    scrollbar-color-active: #89b4fa;
+    scrollbar-size-vertical: 1;
+    scrollbar-size-horizontal: 1;
+}
+
 /* header: title bar (row 0) + menu bar (row 1) */
 #forge-header { dock: top; height: 2; }
 #forge-title {
@@ -32,16 +45,17 @@ Screen { background: #1e1e2e; color: #cdd6f4; }
 .menu-title:hover { background: #313244; color: #89b4fa; }
 .menu-title.active { background: #2b4a7a; color: #cdd6f4; text-style: bold; }
 
-/* work area */
-#forge-work { padding: 1 2; height: 1fr; }
+/* work area — no right padding so section scrollbars hug the screen edge */
+#forge-work { padding: 1 0 1 2; height: 1fr; }
 
 /* dropdown submenu */
 MenuDropdown { align: left top; background: black 30%; }
 .forge-dropdown { background: #313244; color: #cdd6f4; height: auto; border: round #585b70; }
 .forge-dropdown > .option-list--option-highlighted { background: #45475a; color: #89b4fa; }
 
-/* modals — panel scales with the terminal; buttons scroll with content */
-ConfirmDialog, ForgePanelScreen { align: center middle; background: black 45%; }
+/* modals — panel scales with the terminal; buttons scroll with content.
+   ForgeModal covers app-built dialogs so they center like the kit's own. */
+ConfirmDialog, ForgePanelScreen, ForgeModal { align: center middle; background: black 45%; }
 .forge-confirm { width: 50; height: auto; padding: 1 2; background: #313244; border: round #f9e2af; }
 .forge-confirm-msg { padding: 0 0 1 0; }
 .forge-panel { width: 70%; height: 80%; padding: 1 2; background: #313244; border: round #89b4fa; }
@@ -51,6 +65,16 @@ ConfirmDialog, ForgePanelScreen { align: center middle; background: black 45%; }
 Label { color: #a6adc8; padding: 1 0 0 0; }
 Switch.-on { color: #89b4fa; }
 Switch:focus { border: tall #89b4fa; }
+/* compact one-row buttons — Textual's 3-row bordered default is too heavy */
 .forge-buttons { height: auto; padding: 1 0 0 0; align-horizontal: right; }
-.forge-buttons Button { margin: 0 0 0 2; }
+.forge-buttons Button {
+    height: 1; min-width: 10; border: none; padding: 0 2; margin: 0 0 0 2;
+    background: #45475a; color: #cdd6f4;
+}
+.forge-buttons Button:hover { background: #585b70; }
+.forge-buttons Button:focus { background: #2b4a7a; text-style: bold; }
+.forge-buttons Button.-primary { background: #2b4a7a; }
+.forge-buttons Button.-primary:hover { background: #89b4fa; color: #11111b; }
+.forge-buttons Button.-error { background: #f38ba8; color: #11111b; }
+.forge-buttons Button.-error:hover { background: #f9e2af; color: #11111b; }
 """

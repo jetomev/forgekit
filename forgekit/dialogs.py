@@ -11,11 +11,26 @@ Apps build their own editors on ``.forge-panel`` styling + ``ConfirmDialog``
 
 from __future__ import annotations
 
+from typing import TypeVar
+
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.screen import ModalScreen
 from textual.widgets import Button, Static
+
+
+ResultType = TypeVar("ResultType")
+
+
+class ForgeModal(ModalScreen[ResultType]):
+    """Base for app-built floating dialogs (editors, pickers, wizards).
+
+    Carries the standard Forge modal treatment — centered on screen with the
+    dimmed backdrop — so app dialogs match the kit's own windows. Subclass it
+    (optionally parameterized: ``ForgeModal[dict | None]``) and compose a
+    ``.forge-panel`` Vertical inside, as in ``examples/demo.py``.
+    """
 
 
 class ConfirmDialog(ModalScreen[bool]):

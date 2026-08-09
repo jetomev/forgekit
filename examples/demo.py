@@ -17,7 +17,7 @@ from textual.screen import ModalScreen
 from textual.widgets import Button, DataTable, Input, Label, Select, Static, Switch
 from textual import work
 
-from forgekit import ForgeApp, ConfirmDialog, FORGE_CSS, GPL3_NOTICE
+from forgekit import ForgeApp, ForgeModal, ConfirmDialog, FORGE_CSS, GPL3_NOTICE
 
 
 MENU = [
@@ -72,8 +72,8 @@ DataTable > .datatable--header { background: #313244; color: #89b4fa; text-style
 """
 
 
-class EditDialog(ModalScreen[dict | None]):
-    """App-specific editor, built on forgekit's `.forge-panel` styling."""
+class EditDialog(ForgeModal[dict | None]):
+    """App-specific editor, built on forgekit's ForgeModal + `.forge-panel` styling."""
 
     BINDINGS = [Binding("escape", "cancel", "", show=False)]
     TYPES = [("Text", "text"), ("Number", "number"),
@@ -167,8 +167,8 @@ class BitlaForgeDemo(ForgeApp):
             yield Static("\nSolo lottery — no shares, full block or nothing.", classes="muted")
         with VerticalScroll(id="sec-log"):
             yield Static("\n".join(
-                f"[dim]2026-07-18 21:0{i}:11[/dim]  accepted 0/0 diff 1 (n={i})"
-                for i in range(9)), classes="stat")
+                f"[dim]2026-07-18 {21 + i // 60 % 3:02d}:{i % 60:02d}:11[/dim]  accepted 0/0 diff 1 (n={i})"
+                for i in range(200)), classes="stat")
         yield DataTable(id="sec-config", cursor_type="row")
         with Vertical(id="sec-setup"):
             yield Static("🛠  Setup", classes="section-h")
