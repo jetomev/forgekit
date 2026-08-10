@@ -36,6 +36,22 @@ sections, and actions.
 > **Status: 0.3.0 (alpha).** The API may shift as the Forge Suite apps migrate
 > onto it. Pin a version if you depend on it.
 
+## Screenshots
+
+*(Generated from `examples/demo.py` — `PYTHONPATH=. python docs/screenshots/generate.py` re-renders the gallery each release.)*
+
+**The shell** — title + menu bar, sections, Catppuccin Mocha
+![Shell](docs/screenshots/01-shell.svg)
+
+**Floating edit dialog** (`ForgeModal` + `.forge-panel` + fixed footer)
+![Edit dialog](docs/screenshots/02-edit-dialog.svg)
+
+**Menu dropdown**
+![Menu](docs/screenshots/03-menu-open.svg)
+
+**About window** (`ForgePanelScreen`)
+![About](docs/screenshots/04-about-window.svg)
+
 ## Install
 
 ```bash
