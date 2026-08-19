@@ -19,7 +19,7 @@ drift apart. With it, you write only what makes your app different, and a fix or
 polish improves every app at once.
 
 ```
-┌───────────────────────────── BitlaForge ─────────────────────────────┐   title bar
+┌───────────────────────────── bitlaForge ─────────────────────────────┐   title bar
 │ Dashboard  Log  Config  Setup  Help  Quit                            │   menu bar
 │                                                                       │
 │   … the active section owns the whole width …                        │   workspace
