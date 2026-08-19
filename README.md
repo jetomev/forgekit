@@ -6,12 +6,17 @@
 ![License: GPL-3.0](https://img.shields.io/badge/License-GPLv3-blue.svg)
 ![Theme: Catppuccin Mocha](https://img.shields.io/badge/Theme-Catppuccin%20Mocha-f5c2e7.svg)
 
-> 🛡 **Security:** every release is GPG-signed and every commit GitHub-Verified. Read **[Where We Stand](https://github.com/jetomev/KognogOS/blob/main/docs/where-we-stand.md)** — our response to the 2026 AUR supply-chain attacks, what is current, and how to verify us instead of trusting us.
+> 🛡 **Security** — every release is GPG-signed and every commit is GitHub-Verified. **[Where We Stand](https://github.com/jetomev/KognogOS/blob/main/docs/where-we-stand.md)** covers our response to the 2026 AUR supply-chain attacks and how to check us yourself.
 
-A shared **Textual TUI shell** for the [Forge Suite](#the-forge-suite): a classic
-**top menu bar**, a **full-width workspace**, and **floating dialogs** — Catppuccin-Mocha
-themed. Build a terminal app by subclassing one class and declaring your menu,
-sections, and actions.
+**A shared foundation for building terminal apps that look and behave the same.**
+
+Every app in the [Forge Suite](#the-forge-suite) runs in a terminal, but they're
+real applications — menus you click or type through, dialogs that float over your
+work, keyboard shortcuts, a consistent look. forgekit is the part they all share.
+
+Without it, every app would rebuild its own menu bar and its own dialogs, and they'd
+drift apart. With it, you write only what makes your app different, and a fix or a
+polish improves every app at once.
 
 ```
 ┌───────────────────────────── BitlaForge ─────────────────────────────┐   title bar
@@ -22,58 +27,66 @@ sections, and actions.
 └───────────────────────────────────────────────────────────────────────┘
 ```
 
-- **Menu bar** — main options with the first letter underlined (`Ctrl+<letter>`),
-  always ordered `…app options…  Help  Quit`. Submenus drop down with a per-item
-  underlined letter to select.
-- **Workspace** — one full-width section at a time (no fixed sidebar), swapped
-  from the menu bar.
-- **Floating dialogs** — editors and confirmations float over the workspace
-  instead of splitting it; a confirm can stack on top of an editor. Panels scale
-  with the terminal and their buttons scroll with the content.
-- **Help windows** — `Shortcuts`, `License`, and `About` come built in.
-- **Toasts** stay for quick, transient messages.
+**What you get:**
 
-> **Status: 0.3.0 (alpha).** The API may shift as the Forge Suite apps migrate
+- **A menu bar** across the top. Each option's first letter is underlined and works
+  as `Ctrl+<letter>`. Options always end with `Help` and `Quit`, in that order.
+- **A workspace** showing one full-width section at a time. No permanent sidebar
+  eating your screen — you switch sections from the menu.
+- **Floating dialogs** that sit over your work rather than splitting the screen.
+  They can stack: a confirmation can open on top of an editor. They resize with
+  the terminal.
+- **Help windows** — `Shortcuts`, `License` and `About` are built in and work
+  from the start.
+- **Toasts** for quick messages that don't need a dialog.
+
+> **Status: 0.3.0 (alpha).** The API may still shift while the Forge apps migrate
 > onto it. Pin a version if you depend on it.
 
 ## Screenshots
 
-*(Generated from `examples/demo.py` — `PYTHONPATH=. python docs/screenshots/generate.py` re-renders the gallery each release.)*
+*Generated from `examples/demo.py`. Run `PYTHONPATH=. python docs/screenshots/generate.py` to re-render them.*
 
-**The shell** — title + menu bar, sections, Catppuccin Mocha
+**The shell** — title bar, menu bar, and a section
 ![Shell](docs/screenshots/01-shell.svg)
 
-**Floating edit dialog** (`ForgeModal` + `.forge-panel` + fixed footer)
+**A floating edit dialog**
 ![Edit dialog](docs/screenshots/02-edit-dialog.svg)
 
-**Menu dropdown**
+**A menu dropdown**
 ![Menu](docs/screenshots/03-menu-open.svg)
 
-**About window** (`ForgePanelScreen`)
+**The About window**
 ![About](docs/screenshots/04-about-window.svg)
 
 ## Install
 
-On Arch, from the AUR — this is the packaged path the Forge apps depend on,
-and it verifies the release signature at build time:
+On Arch, from the AUR. This is the packaged path the Forge apps depend on, and it
+verifies our release signature while building:
 
 ```bash
 yay -S python-forgekit
 ```
 
-Anywhere else, or for development:
+Anywhere else:
 
 ```bash
 pip install git+https://github.com/jetomev/forgekit
-# or, for local development:
+```
+
+For development:
+
+```bash
 git clone https://github.com/jetomev/forgekit && cd forgekit
 pip install -e .
 python examples/demo.py
 ```
 
-Requires Python 3.10+ and `textual>=8.0`.
+Requires Python 3.10 or newer, and `textual>=8.0`.
 
 ## Quickstart
+
+A complete app. Subclass one class, declare your menu, and write your sections.
 
 ```python
 from textual.binding import Binding
@@ -104,59 +117,73 @@ class MyApp(ForgeApp):
             yield Static("Hello from the workspace.")
 
     def on_action(self, action_id):
-        ...  # handle your own submenu actions here
+        ...  # handle your own menu actions here
 
 if __name__ == "__main__":
     MyApp().run()
 ```
 
-See [`examples/demo.py`](examples/demo.py) for the full pattern — a `Config`
-section with a floating edit dialog and a stacked delete-confirm.
+[`examples/demo.py`](examples/demo.py) shows the full pattern, including a Config
+section with a floating editor and a delete confirmation stacked on top of it.
 
-## The objects
+## What's in the box
 
 | Object | What it is |
 | --- | --- |
-| `ForgeApp` | Base app: title + menu bar, the section switcher, menu dispatch, and the Help windows. Subclass it. |
-| `MenuBar` / `MenuDropdown` | The top bar and its dropdown submenus. |
-| `ConfirmDialog` | Small yes/no; stacks over anything; returns a bool. |
-| `ForgePanelScreen` | The standard scrolling panel (title + body + trailing Close). Base for info windows. |
-| `AboutDialog` / `LicenseDialog` / `ShortcutsDialog` | The Help windows. |
-| `FORGE_CSS` / `COLORS` / `GPL3_NOTICE` | The base stylesheet, the Catppuccin palette, and a ready GPL notice. |
+| `ForgeApp` | The base app — title bar, menu bar, section switching, and the Help windows. Subclass this. |
+| `MenuBar` / `MenuDropdown` | The top bar and its dropdowns. |
+| `ConfirmDialog` | A small yes/no. Stacks over anything and returns a boolean. |
+| `ForgePanelScreen` | The standard scrolling panel — title, body, and a Close button. Use it for any information window. |
+| `AboutDialog` / `LicenseDialog` / `ShortcutsDialog` | The built-in Help windows. |
+| `FORGE_CSS` / `COLORS` / `GPL3_NOTICE` | The stylesheet, the Catppuccin palette, and a ready-made GPL notice. |
 
-### Menu model
+### How a menu is described
 
 ```python
 {"id": "config", "title": "Config", "kind": "menu", "items": [
-    ("New entry", "n", "add"),          # (label, in-menu accelerator, action id)
+    ("New entry", "n", "add"),          # (label, letter to press, action id)
 ]}
-# kind:  "section" → switch the workspace · "menu" → dropdown · "action" → run
 ```
+
+Each entry has a `kind`:
+
+- `"section"` — switch the workspace to that section
+- `"menu"` — open a dropdown
+- `"action"` — run something immediately
 
 ## Keyboard model
 
-Main options use their **first letter** as `Ctrl+<letter>`; the app's shortcuts
-take priority over the terminal's. One sharp edge to know: a few control keys
-are terminal conventions — `Ctrl+C` (interrupt), `Ctrl+S`/`Ctrl+Q` (flow
-control), and `Ctrl+H` (often Backspace). `forgekit` binds them with priority so
-the app wins where the terminal allows, but if a section's first letter is one
-of those and your terminal swallows it, underline a different letter for that
-option.
+Menu options use their first letter as `Ctrl+<letter>`, and the app's shortcuts
+take priority over the terminal's.
+
+One sharp edge worth knowing: a few control keys are terminal conventions rather
+than yours. `Ctrl+C` interrupts, `Ctrl+S` and `Ctrl+Q` are flow control, and
+`Ctrl+H` is often Backspace. forgekit claims them with priority so your app wins
+wherever the terminal allows it — but if a section's first letter is one of those
+and your terminal insists on keeping it, underline a different letter for that
+option instead.
 
 ## The Forge Suite
 
-`forgekit` is the shared UI layer being adopted (v2.0) across the Forge Suite
-for KognogOS — grubForge, alacrittyForge, BitlaForge, nogForge, and the two
-distro-critical apps decided 2026-07-31 under KognogOS's **TUI-first
-doctrine**: **welcomeforge** (the KognogOS Welcome Center — forgekit's pilot
-adopter) and **installforge** (the OS installer, building on the kit
-welcomeforge matures). Splitting the shell into one library means a fix or a
-polish lands for every app at once — and the suite is deliberately growing
-toward a full **Forge Control Center** for the OS.
+forgekit is the shared foundation for the Forge apps that ship with
+[KognogOS](https://github.com/jetomev/KognogOS):
+
+- **[grubForge](https://github.com/jetomev/grubforge)** — bootloader manager
+- **[alacrittyForge](https://github.com/jetomev/alacrittyforge)** — terminal configurator
+- **[bitlaForge](https://github.com/jetomev/bitlaforge)** — solo Bitcoin mining
+- **[nogForge](https://github.com/jetomev/nogforge)** — package manager companion
+- **welcomeforge** — the KognogOS Welcome Center, and forgekit's pilot app
+- **installforge** — the KognogOS installer, built on the foundation welcomeforge matures
+
+KognogOS decided in July 2026 that its system tools would be terminal apps rather
+than graphical ones. That makes this library load-bearing: it's the reason the
+installer and the welcome screen will feel like the same product as the tools you
+use afterwards. The suite is growing toward a full **Forge Control Center** for
+the whole OS.
 
 ## License & credits
 
 GPL-3.0-or-later — see [`LICENSE`](LICENSE).
 
-A human + AI collaboration: **Javier** ([@jetomev](https://github.com/jetomev)) with
-**Claude** (Anthropic) as co-developer.
+A human and AI collaboration: **Javier** ([@jetomev](https://github.com/jetomev))
+with **Claude** (Anthropic) as co-developer.
