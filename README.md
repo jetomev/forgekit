@@ -1,3 +1,6 @@
+> ## 📦 forgekit has moved into the [Forge Suite](https://github.com/jetomev/forge-suite/tree/main/forgekit)
+> Since **6 October 2026** forgekit lives in **[jetomev/forge-suite](https://github.com/jetomev/forge-suite)**, with its full history. New releases are tagged `forgekit-vX.Y.Z` there, and issues go there too. This repository is archived: its releases (up to 0.6.0) and issues stay readable, and the AUR package `python-forgekit` keeps working.
+
 # 🔨 forgekit
 
 ![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-purple.svg)
